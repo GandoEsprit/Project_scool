@@ -16,5 +16,6 @@
   </properties>
 
 <modules>  <module>gando-scool-parent-bom</module>
+    <module>gando-scool-model</module>
   </modules>
 </project>
