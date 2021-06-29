@@ -1,4 +1,4 @@
-package it.gando.scool;
+package it.gando.scool.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
