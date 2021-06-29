@@ -10,38 +10,31 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.JoinColumn;
 
 @Entity
-public class Teacher {
+public class Classe {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "teacher_name")
+	@Column(name = "classe_name")
 	private String name;
 	
-	@Column(name = "teacher_surname")
-	private String surname;
-	
 	@ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinTable(name="Teacher_matiere",
-		joinColumns = {@JoinColumn(name="teacher_id")},
-		inverseJoinColumns = {@JoinColumn(name="matiere_id")}
+	@JoinTable(name="classe_teacher",
+		joinColumns = {@JoinColumn(name="classe_id")},
+		inverseJoinColumns = {@JoinColumn(name="teacher_id")}
 	)
-	private List<Matiere> matiereList = new ArrayList<>();
+	private List<Teacher> teacherList = new ArrayList<>();
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="teacherList")
-	private List<Classe> classeList = new ArrayList<>();
+	public Classe() {}
 	
-	public Teacher() {}
-	
-	public Teacher(String name, String surname){
+	public Classe(String name){
 		this.name = name;
-		this.surname = surname;
 	}
 
 	public Long getId() {
@@ -60,20 +53,12 @@ public class Teacher {
 		this.name = name;
 	}
 
-	public String getSurname() {
-		return surname;
+	public List<Teacher> getTeacherList() {
+		return teacherList;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public List<Matiere> getMatiereList() {
-		return matiereList;
-	}
-
-	public void setMatiereList(List<Matiere> matiereList) {
-		this.matiereList = matiereList;
+	public void setTeacherList(List<Teacher> teacherList) {
+		this.teacherList = teacherList;
 	}
 
 }

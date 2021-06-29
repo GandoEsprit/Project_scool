@@ -1,10 +1,16 @@
 package it.gando.scool.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Matiere {
@@ -15,6 +21,9 @@ public class Matiere {
 	
 	@Column(name = "matiere_name")
 	private String name;
+	
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="matiereList")
+	private List<Teacher> teacherList = new ArrayList<>();
 	
 	public Matiere() {}
 	
@@ -36,6 +45,14 @@ public class Matiere {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Teacher> getTeacherList() {
+		return teacherList;
+	}
+
+	public void setTeacherList(List<Teacher> teacherList) {
+		this.teacherList = teacherList;
 	}
 
 }
